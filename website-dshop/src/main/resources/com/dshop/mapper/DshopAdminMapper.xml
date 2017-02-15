@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dshop.service.mapper.DshopAdminMapper" >
+  <resultMap id="BaseResultMap" type="com.dshop.bean.DshopAdmin" >
+    <id column="admin_id" property="adminId" jdbcType="INTEGER" />
+    <result column="admin_name" property="adminName" jdbcType="VARCHAR" />
+    <result column="admin_image" property="adminImage" jdbcType="VARCHAR" />
+    <result column="admin_password" property="adminPassword" jdbcType="VARCHAR" />
+    <result column="admin_register_time" property="adminRegisterTime" jdbcType="INTEGER" />
+    <result column="admin_login_num" property="adminLoginNum" jdbcType="INTEGER" />
+    <result column="admin_is_super" property="adminIsSuper" jdbcType="BIT" />
+    <result column="admin_gid" property="adminGid" jdbcType="SMALLINT" />
+    <result column="admin_quick_link" property="adminQuickLink" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    admin_id, admin_name, admin_image, admin_password, admin_register_time, admin_login_num, 
+    admin_is_super, admin_gid, admin_quick_link
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dshop.bean.example.DshopAdminExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dshop_admin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dshop_admin
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dshop_admin
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dshop.bean.example.DshopAdminExample" >
+    delete from dshop_admin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dshop.bean.DshopAdmin" >
+    insert into dshop_admin (admin_id, admin_name, admin_image, 
+      admin_password, admin_register_time, admin_login_num, 
+      admin_is_super, admin_gid, admin_quick_link
+      )
+    values (#{adminId,jdbcType=INTEGER}, #{adminName,jdbcType=VARCHAR}, #{adminImage,jdbcType=VARCHAR}, 
+      #{adminPassword,jdbcType=VARCHAR}, #{adminRegisterTime,jdbcType=INTEGER}, #{adminLoginNum,jdbcType=INTEGER}, 
+      #{adminIsSuper,jdbcType=BIT}, #{adminGid,jdbcType=SMALLINT}, #{adminQuickLink,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dshop.bean.DshopAdmin" >
+    insert into dshop_admin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="adminName != null" >
+        admin_name,
+      </if>
+      <if test="adminImage != null" >
+        admin_image,
+      </if>
+      <if test="adminPassword != null" >
+        admin_password,
+      </if>
+      <if test="adminRegisterTime != null" >
+        admin_register_time,
+      </if>
+      <if test="adminLoginNum != null" >
+        admin_login_num,
+      </if>
+      <if test="adminIsSuper != null" >
+        admin_is_super,
+      </if>
+      <if test="adminGid != null" >
+        admin_gid,
+      </if>
+      <if test="adminQuickLink != null" >
+        admin_quick_link,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adminId != null" >
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="adminName != null" >
+        #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminImage != null" >
+        #{adminImage,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPassword != null" >
+        #{adminPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="adminRegisterTime != null" >
+        #{adminRegisterTime,jdbcType=INTEGER},
+      </if>
+      <if test="adminLoginNum != null" >
+        #{adminLoginNum,jdbcType=INTEGER},
+      </if>
+      <if test="adminIsSuper != null" >
+        #{adminIsSuper,jdbcType=BIT},
+      </if>
+      <if test="adminGid != null" >
+        #{adminGid,jdbcType=SMALLINT},
+      </if>
+      <if test="adminQuickLink != null" >
+        #{adminQuickLink,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dshop.bean.example.DshopAdminExample" resultType="java.lang.Integer" >
+    select count(*) from dshop_admin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dshop_admin
+    <set >
+      <if test="record.adminId != null" >
+        admin_id = #{record.adminId,jdbcType=INTEGER},
+      </if>
+      <if test="record.adminName != null" >
+        admin_name = #{record.adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminImage != null" >
+        admin_image = #{record.adminImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminPassword != null" >
+        admin_password = #{record.adminPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminRegisterTime != null" >
+        admin_register_time = #{record.adminRegisterTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.adminLoginNum != null" >
+        admin_login_num = #{record.adminLoginNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.adminIsSuper != null" >
+        admin_is_super = #{record.adminIsSuper,jdbcType=BIT},
+      </if>
+      <if test="record.adminGid != null" >
+        admin_gid = #{record.adminGid,jdbcType=SMALLINT},
+      </if>
+      <if test="record.adminQuickLink != null" >
+        admin_quick_link = #{record.adminQuickLink,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dshop_admin
+    set admin_id = #{record.adminId,jdbcType=INTEGER},
+      admin_name = #{record.adminName,jdbcType=VARCHAR},
+      admin_image = #{record.adminImage,jdbcType=VARCHAR},
+      admin_password = #{record.adminPassword,jdbcType=VARCHAR},
+      admin_register_time = #{record.adminRegisterTime,jdbcType=INTEGER},
+      admin_login_num = #{record.adminLoginNum,jdbcType=INTEGER},
+      admin_is_super = #{record.adminIsSuper,jdbcType=BIT},
+      admin_gid = #{record.adminGid,jdbcType=SMALLINT},
+      admin_quick_link = #{record.adminQuickLink,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dshop.bean.DshopAdmin" >
+    update dshop_admin
+    <set >
+      <if test="adminName != null" >
+        admin_name = #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminImage != null" >
+        admin_image = #{adminImage,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPassword != null" >
+        admin_password = #{adminPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="adminRegisterTime != null" >
+        admin_register_time = #{adminRegisterTime,jdbcType=INTEGER},
+      </if>
+      <if test="adminLoginNum != null" >
+        admin_login_num = #{adminLoginNum,jdbcType=INTEGER},
+      </if>
+      <if test="adminIsSuper != null" >
+        admin_is_super = #{adminIsSuper,jdbcType=BIT},
+      </if>
+      <if test="adminGid != null" >
+        admin_gid = #{adminGid,jdbcType=SMALLINT},
+      </if>
+      <if test="adminQuickLink != null" >
+        admin_quick_link = #{adminQuickLink,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dshop.bean.DshopAdmin" >
+    update dshop_admin
+    set admin_name = #{adminName,jdbcType=VARCHAR},
+      admin_image = #{adminImage,jdbcType=VARCHAR},
+      admin_password = #{adminPassword,jdbcType=VARCHAR},
+      admin_register_time = #{adminRegisterTime,jdbcType=INTEGER},
+      admin_login_num = #{adminLoginNum,jdbcType=INTEGER},
+      admin_is_super = #{adminIsSuper,jdbcType=BIT},
+      admin_gid = #{adminGid,jdbcType=SMALLINT},
+      admin_quick_link = #{adminQuickLink,jdbcType=VARCHAR}
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </update>
+  <cache />
+  <select resultMap="BaseResultMap" parameterType="com.dshop.bean.example.DshopAdminExample" id="selectByExampleWithRowbounds" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dshop_admin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

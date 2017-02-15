@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dshop.service.mapper.DshopGoodsCombinationMapper" >
+  <resultMap id="BaseResultMap" type="com.dshop.bean.DshopGoodsCombination" >
+    <id column="comb_id" property="combId" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="comb_goodsid" property="combGoodsid" jdbcType="INTEGER" />
+    <result column="comb_ext1" property="combExt1" jdbcType="VARCHAR" />
+    <result column="comb_ext2" property="combExt2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    comb_id, goods_id, comb_goodsid, comb_ext1, comb_ext2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dshop.bean.example.DshopGoodsCombinationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dshop_goods_combination
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dshop_goods_combination
+    where comb_id = #{combId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dshop_goods_combination
+    where comb_id = #{combId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dshop.bean.example.DshopGoodsCombinationExample" >
+    delete from dshop_goods_combination
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dshop.bean.DshopGoodsCombination" >
+    insert into dshop_goods_combination (comb_id, goods_id, comb_goodsid, 
+      comb_ext1, comb_ext2)
+    values (#{combId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{combGoodsid,jdbcType=INTEGER}, 
+      #{combExt1,jdbcType=VARCHAR}, #{combExt2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dshop.bean.DshopGoodsCombination" >
+    insert into dshop_goods_combination
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="combId != null" >
+        comb_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="combGoodsid != null" >
+        comb_goodsid,
+      </if>
+      <if test="combExt1 != null" >
+        comb_ext1,
+      </if>
+      <if test="combExt2 != null" >
+        comb_ext2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="combId != null" >
+        #{combId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="combGoodsid != null" >
+        #{combGoodsid,jdbcType=INTEGER},
+      </if>
+      <if test="combExt1 != null" >
+        #{combExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="combExt2 != null" >
+        #{combExt2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dshop.bean.example.DshopGoodsCombinationExample" resultType="java.lang.Integer" >
+    select count(*) from dshop_goods_combination
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dshop_goods_combination
+    <set >
+      <if test="record.combId != null" >
+        comb_id = #{record.combId,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsId != null" >
+        goods_id = #{record.goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.combGoodsid != null" >
+        comb_goodsid = #{record.combGoodsid,jdbcType=INTEGER},
+      </if>
+      <if test="record.combExt1 != null" >
+        comb_ext1 = #{record.combExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.combExt2 != null" >
+        comb_ext2 = #{record.combExt2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dshop_goods_combination
+    set comb_id = #{record.combId,jdbcType=INTEGER},
+      goods_id = #{record.goodsId,jdbcType=INTEGER},
+      comb_goodsid = #{record.combGoodsid,jdbcType=INTEGER},
+      comb_ext1 = #{record.combExt1,jdbcType=VARCHAR},
+      comb_ext2 = #{record.combExt2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dshop.bean.DshopGoodsCombination" >
+    update dshop_goods_combination
+    <set >
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="combGoodsid != null" >
+        comb_goodsid = #{combGoodsid,jdbcType=INTEGER},
+      </if>
+      <if test="combExt1 != null" >
+        comb_ext1 = #{combExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="combExt2 != null" >
+        comb_ext2 = #{combExt2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where comb_id = #{combId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dshop.bean.DshopGoodsCombination" >
+    update dshop_goods_combination
+    set goods_id = #{goodsId,jdbcType=INTEGER},
+      comb_goodsid = #{combGoodsid,jdbcType=INTEGER},
+      comb_ext1 = #{combExt1,jdbcType=VARCHAR},
+      comb_ext2 = #{combExt2,jdbcType=VARCHAR}
+    where comb_id = #{combId,jdbcType=INTEGER}
+  </update>
+  <cache />
+  <select resultMap="BaseResultMap" parameterType="com.dshop.bean.example.DshopGoodsCombinationExample" id="selectByExampleWithRowbounds" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dshop_goods_combination
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

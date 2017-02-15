@@ -1,0 +1,47 @@
+#parse("/manager/comm.html")
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>控制台</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+#parse("/manager/common/commcss.html")
+</head>
+<body>
+#set($menu="/admin/error404")
+##公共头部
+#parse("/manager/common/head.html")
+			<!-- 当前页面内容开始 -->
+			<div class="page-content">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="error-container">
+							<div class="well">
+								<h1 class="grey lighter smaller">
+									<span class="blue bigger-125">
+										<i class="icon-sitemap"></i>
+										404
+									</span>
+									Page Not Found
+								</h1>
+
+								<hr />
+
+								<div class="space"></div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	<!-- 当前页面内容结束 -->
+	##公共右边
+	#parse("/manager/common/right.html")
+	##公共脚本
+	#parse("/manager/common/commjs.html")
+</body>
+</html>

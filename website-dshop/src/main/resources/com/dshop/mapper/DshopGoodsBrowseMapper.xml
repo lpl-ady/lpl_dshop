@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dshop.service.mapper.DshopGoodsBrowseMapper" >
+  <resultMap id="BaseResultMap" type="com.dshop.bean.DshopGoodsBrowse" >
+    <id column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <id column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="cate_id" property="cateId" jdbcType="INTEGER" />
+    <result column="cate_id1" property="cateId1" jdbcType="INTEGER" />
+    <result column="cate_id2" property="cateId2" jdbcType="INTEGER" />
+    <result column="cate_id3" property="cateId3" jdbcType="INTEGER" />
+    <result column="browse_time" property="browseTime" jdbcType="INTEGER" />
+    <result column="browse_ext1" property="browseExt1" jdbcType="VARCHAR" />
+    <result column="browse_ext2" property="browseExt2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    goods_id, member_id, goods_name, cate_id, cate_id1, cate_id2, cate_id3, browse_time, 
+    browse_ext1, browse_ext2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dshop.bean.example.DshopGoodsBrowseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dshop_goods_browse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from dshop_goods_browse
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+      and member_id = #{memberId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from dshop_goods_browse
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+      and member_id = #{memberId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dshop.bean.example.DshopGoodsBrowseExample" >
+    delete from dshop_goods_browse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dshop.bean.DshopGoodsBrowse" >
+    insert into dshop_goods_browse (goods_id, member_id, goods_name, 
+      cate_id, cate_id1, cate_id2, 
+      cate_id3, browse_time, browse_ext1, 
+      browse_ext2)
+    values (#{goodsId,jdbcType=INTEGER}, #{memberId,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR}, 
+      #{cateId,jdbcType=INTEGER}, #{cateId1,jdbcType=INTEGER}, #{cateId2,jdbcType=INTEGER}, 
+      #{cateId3,jdbcType=INTEGER}, #{browseTime,jdbcType=INTEGER}, #{browseExt1,jdbcType=VARCHAR}, 
+      #{browseExt2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dshop.bean.DshopGoodsBrowse" >
+    insert into dshop_goods_browse
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="cateId != null" >
+        cate_id,
+      </if>
+      <if test="cateId1 != null" >
+        cate_id1,
+      </if>
+      <if test="cateId2 != null" >
+        cate_id2,
+      </if>
+      <if test="cateId3 != null" >
+        cate_id3,
+      </if>
+      <if test="browseTime != null" >
+        browse_time,
+      </if>
+      <if test="browseExt1 != null" >
+        browse_ext1,
+      </if>
+      <if test="browseExt2 != null" >
+        browse_ext2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="cateId != null" >
+        #{cateId,jdbcType=INTEGER},
+      </if>
+      <if test="cateId1 != null" >
+        #{cateId1,jdbcType=INTEGER},
+      </if>
+      <if test="cateId2 != null" >
+        #{cateId2,jdbcType=INTEGER},
+      </if>
+      <if test="cateId3 != null" >
+        #{cateId3,jdbcType=INTEGER},
+      </if>
+      <if test="browseTime != null" >
+        #{browseTime,jdbcType=INTEGER},
+      </if>
+      <if test="browseExt1 != null" >
+        #{browseExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="browseExt2 != null" >
+        #{browseExt2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dshop.bean.example.DshopGoodsBrowseExample" resultType="java.lang.Integer" >
+    select count(*) from dshop_goods_browse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dshop_goods_browse
+    <set >
+      <if test="record.goodsId != null" >
+        goods_id = #{record.goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.memberId != null" >
+        member_id = #{record.memberId,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsName != null" >
+        goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cateId != null" >
+        cate_id = #{record.cateId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cateId1 != null" >
+        cate_id1 = #{record.cateId1,jdbcType=INTEGER},
+      </if>
+      <if test="record.cateId2 != null" >
+        cate_id2 = #{record.cateId2,jdbcType=INTEGER},
+      </if>
+      <if test="record.cateId3 != null" >
+        cate_id3 = #{record.cateId3,jdbcType=INTEGER},
+      </if>
+      <if test="record.browseTime != null" >
+        browse_time = #{record.browseTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.browseExt1 != null" >
+        browse_ext1 = #{record.browseExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.browseExt2 != null" >
+        browse_ext2 = #{record.browseExt2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dshop_goods_browse
+    set goods_id = #{record.goodsId,jdbcType=INTEGER},
+      member_id = #{record.memberId,jdbcType=INTEGER},
+      goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      cate_id = #{record.cateId,jdbcType=INTEGER},
+      cate_id1 = #{record.cateId1,jdbcType=INTEGER},
+      cate_id2 = #{record.cateId2,jdbcType=INTEGER},
+      cate_id3 = #{record.cateId3,jdbcType=INTEGER},
+      browse_time = #{record.browseTime,jdbcType=INTEGER},
+      browse_ext1 = #{record.browseExt1,jdbcType=VARCHAR},
+      browse_ext2 = #{record.browseExt2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dshop.bean.DshopGoodsBrowse" >
+    update dshop_goods_browse
+    <set >
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="cateId != null" >
+        cate_id = #{cateId,jdbcType=INTEGER},
+      </if>
+      <if test="cateId1 != null" >
+        cate_id1 = #{cateId1,jdbcType=INTEGER},
+      </if>
+      <if test="cateId2 != null" >
+        cate_id2 = #{cateId2,jdbcType=INTEGER},
+      </if>
+      <if test="cateId3 != null" >
+        cate_id3 = #{cateId3,jdbcType=INTEGER},
+      </if>
+      <if test="browseTime != null" >
+        browse_time = #{browseTime,jdbcType=INTEGER},
+      </if>
+      <if test="browseExt1 != null" >
+        browse_ext1 = #{browseExt1,jdbcType=VARCHAR},
+      </if>
+      <if test="browseExt2 != null" >
+        browse_ext2 = #{browseExt2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+      and member_id = #{memberId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dshop.bean.DshopGoodsBrowse" >
+    update dshop_goods_browse
+    set goods_name = #{goodsName,jdbcType=VARCHAR},
+      cate_id = #{cateId,jdbcType=INTEGER},
+      cate_id1 = #{cateId1,jdbcType=INTEGER},
+      cate_id2 = #{cateId2,jdbcType=INTEGER},
+      cate_id3 = #{cateId3,jdbcType=INTEGER},
+      browse_time = #{browseTime,jdbcType=INTEGER},
+      browse_ext1 = #{browseExt1,jdbcType=VARCHAR},
+      browse_ext2 = #{browseExt2,jdbcType=VARCHAR}
+    where goods_id = #{goodsId,jdbcType=INTEGER}
+      and member_id = #{memberId,jdbcType=INTEGER}
+  </update>
+  <cache />
+  <select resultMap="BaseResultMap" parameterType="com.dshop.bean.example.DshopGoodsBrowseExample" id="selectByExampleWithRowbounds" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dshop_goods_browse
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

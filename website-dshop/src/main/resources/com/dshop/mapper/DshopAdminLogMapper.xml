@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dshop.service.mapper.DshopAdminLogMapper" >
+  <resultMap id="BaseResultMap" type="com.dshop.bean.DshopAdminLog" >
+    <id column="log_id" property="logId" jdbcType="INTEGER" />
+    <result column="admin_id" property="adminId" jdbcType="INTEGER" />
+    <result column="admin_name" property="adminName" jdbcType="CHAR" />
+    <result column="op_content" property="opContent" jdbcType="VARCHAR" />
+    <result column="op_time" property="opTime" jdbcType="INTEGER" />
+    <result column="op_ip" property="opIp" jdbcType="CHAR" />
+    <result column="op_url" property="opUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    log_id, admin_id, admin_name, op_content, op_time, op_ip, op_url
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dshop.bean.example.DshopAdminLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dshop_admin_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dshop_admin_log
+    where log_id = #{logId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dshop_admin_log
+    where log_id = #{logId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dshop.bean.example.DshopAdminLogExample" >
+    delete from dshop_admin_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dshop.bean.DshopAdminLog" >
+    insert into dshop_admin_log (log_id, admin_id, admin_name, 
+      op_content, op_time, op_ip, 
+      op_url)
+    values (#{logId,jdbcType=INTEGER}, #{adminId,jdbcType=INTEGER}, #{adminName,jdbcType=CHAR}, 
+      #{opContent,jdbcType=VARCHAR}, #{opTime,jdbcType=INTEGER}, #{opIp,jdbcType=CHAR}, 
+      #{opUrl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dshop.bean.DshopAdminLog" >
+    insert into dshop_admin_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        log_id,
+      </if>
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="adminName != null" >
+        admin_name,
+      </if>
+      <if test="opContent != null" >
+        op_content,
+      </if>
+      <if test="opTime != null" >
+        op_time,
+      </if>
+      <if test="opIp != null" >
+        op_ip,
+      </if>
+      <if test="opUrl != null" >
+        op_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=INTEGER},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="adminName != null" >
+        #{adminName,jdbcType=CHAR},
+      </if>
+      <if test="opContent != null" >
+        #{opContent,jdbcType=VARCHAR},
+      </if>
+      <if test="opTime != null" >
+        #{opTime,jdbcType=INTEGER},
+      </if>
+      <if test="opIp != null" >
+        #{opIp,jdbcType=CHAR},
+      </if>
+      <if test="opUrl != null" >
+        #{opUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dshop.bean.example.DshopAdminLogExample" resultType="java.lang.Integer" >
+    select count(*) from dshop_admin_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dshop_admin_log
+    <set >
+      <if test="record.logId != null" >
+        log_id = #{record.logId,jdbcType=INTEGER},
+      </if>
+      <if test="record.adminId != null" >
+        admin_id = #{record.adminId,jdbcType=INTEGER},
+      </if>
+      <if test="record.adminName != null" >
+        admin_name = #{record.adminName,jdbcType=CHAR},
+      </if>
+      <if test="record.opContent != null" >
+        op_content = #{record.opContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.opTime != null" >
+        op_time = #{record.opTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.opIp != null" >
+        op_ip = #{record.opIp,jdbcType=CHAR},
+      </if>
+      <if test="record.opUrl != null" >
+        op_url = #{record.opUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dshop_admin_log
+    set log_id = #{record.logId,jdbcType=INTEGER},
+      admin_id = #{record.adminId,jdbcType=INTEGER},
+      admin_name = #{record.adminName,jdbcType=CHAR},
+      op_content = #{record.opContent,jdbcType=VARCHAR},
+      op_time = #{record.opTime,jdbcType=INTEGER},
+      op_ip = #{record.opIp,jdbcType=CHAR},
+      op_url = #{record.opUrl,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dshop.bean.DshopAdminLog" >
+    update dshop_admin_log
+    <set >
+      <if test="adminId != null" >
+        admin_id = #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="adminName != null" >
+        admin_name = #{adminName,jdbcType=CHAR},
+      </if>
+      <if test="opContent != null" >
+        op_content = #{opContent,jdbcType=VARCHAR},
+      </if>
+      <if test="opTime != null" >
+        op_time = #{opTime,jdbcType=INTEGER},
+      </if>
+      <if test="opIp != null" >
+        op_ip = #{opIp,jdbcType=CHAR},
+      </if>
+      <if test="opUrl != null" >
+        op_url = #{opUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dshop.bean.DshopAdminLog" >
+    update dshop_admin_log
+    set admin_id = #{adminId,jdbcType=INTEGER},
+      admin_name = #{adminName,jdbcType=CHAR},
+      op_content = #{opContent,jdbcType=VARCHAR},
+      op_time = #{opTime,jdbcType=INTEGER},
+      op_ip = #{opIp,jdbcType=CHAR},
+      op_url = #{opUrl,jdbcType=VARCHAR}
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+  <cache />
+  <select resultMap="BaseResultMap" parameterType="com.dshop.bean.example.DshopAdminLogExample" id="selectByExampleWithRowbounds" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dshop_admin_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

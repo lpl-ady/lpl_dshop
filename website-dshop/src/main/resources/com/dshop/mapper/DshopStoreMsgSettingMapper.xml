@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dshop.service.mapper.DshopStoreMsgSettingMapper" >
+  <resultMap id="BaseResultMap" type="com.dshop.bean.DshopStoreMsgSetting" >
+    <id column="smt_code" property="smtCode" jdbcType="VARCHAR" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="sms_message_switch" property="smsMessageSwitch" jdbcType="TINYINT" />
+    <result column="sms_short_switch" property="smsShortSwitch" jdbcType="TINYINT" />
+    <result column="sms_mail_switch" property="smsMailSwitch" jdbcType="TINYINT" />
+    <result column="sms_short_number" property="smsShortNumber" jdbcType="VARCHAR" />
+    <result column="sms_mail_number" property="smsMailNumber" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    smt_code, store_id, sms_message_switch, sms_short_switch, sms_mail_switch, sms_short_number, 
+    sms_mail_number
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dshop.bean.example.DshopStoreMsgSettingExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dshop_store_msg_setting
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from dshop_store_msg_setting
+    where smt_code = #{smtCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from dshop_store_msg_setting
+    where smt_code = #{smtCode,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dshop.bean.example.DshopStoreMsgSettingExample" >
+    delete from dshop_store_msg_setting
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dshop.bean.DshopStoreMsgSetting" >
+    insert into dshop_store_msg_setting (smt_code, store_id, sms_message_switch, 
+      sms_short_switch, sms_mail_switch, sms_short_number, 
+      sms_mail_number)
+    values (#{smtCode,jdbcType=VARCHAR}, #{storeId,jdbcType=INTEGER}, #{smsMessageSwitch,jdbcType=TINYINT}, 
+      #{smsShortSwitch,jdbcType=TINYINT}, #{smsMailSwitch,jdbcType=TINYINT}, #{smsShortNumber,jdbcType=VARCHAR}, 
+      #{smsMailNumber,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dshop.bean.DshopStoreMsgSetting" >
+    insert into dshop_store_msg_setting
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="smtCode != null" >
+        smt_code,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="smsMessageSwitch != null" >
+        sms_message_switch,
+      </if>
+      <if test="smsShortSwitch != null" >
+        sms_short_switch,
+      </if>
+      <if test="smsMailSwitch != null" >
+        sms_mail_switch,
+      </if>
+      <if test="smsShortNumber != null" >
+        sms_short_number,
+      </if>
+      <if test="smsMailNumber != null" >
+        sms_mail_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="smtCode != null" >
+        #{smtCode,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="smsMessageSwitch != null" >
+        #{smsMessageSwitch,jdbcType=TINYINT},
+      </if>
+      <if test="smsShortSwitch != null" >
+        #{smsShortSwitch,jdbcType=TINYINT},
+      </if>
+      <if test="smsMailSwitch != null" >
+        #{smsMailSwitch,jdbcType=TINYINT},
+      </if>
+      <if test="smsShortNumber != null" >
+        #{smsShortNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="smsMailNumber != null" >
+        #{smsMailNumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dshop.bean.example.DshopStoreMsgSettingExample" resultType="java.lang.Integer" >
+    select count(*) from dshop_store_msg_setting
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dshop_store_msg_setting
+    <set >
+      <if test="record.smtCode != null" >
+        smt_code = #{record.smtCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeId != null" >
+        store_id = #{record.storeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.smsMessageSwitch != null" >
+        sms_message_switch = #{record.smsMessageSwitch,jdbcType=TINYINT},
+      </if>
+      <if test="record.smsShortSwitch != null" >
+        sms_short_switch = #{record.smsShortSwitch,jdbcType=TINYINT},
+      </if>
+      <if test="record.smsMailSwitch != null" >
+        sms_mail_switch = #{record.smsMailSwitch,jdbcType=TINYINT},
+      </if>
+      <if test="record.smsShortNumber != null" >
+        sms_short_number = #{record.smsShortNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.smsMailNumber != null" >
+        sms_mail_number = #{record.smsMailNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dshop_store_msg_setting
+    set smt_code = #{record.smtCode,jdbcType=VARCHAR},
+      store_id = #{record.storeId,jdbcType=INTEGER},
+      sms_message_switch = #{record.smsMessageSwitch,jdbcType=TINYINT},
+      sms_short_switch = #{record.smsShortSwitch,jdbcType=TINYINT},
+      sms_mail_switch = #{record.smsMailSwitch,jdbcType=TINYINT},
+      sms_short_number = #{record.smsShortNumber,jdbcType=VARCHAR},
+      sms_mail_number = #{record.smsMailNumber,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dshop.bean.DshopStoreMsgSetting" >
+    update dshop_store_msg_setting
+    <set >
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="smsMessageSwitch != null" >
+        sms_message_switch = #{smsMessageSwitch,jdbcType=TINYINT},
+      </if>
+      <if test="smsShortSwitch != null" >
+        sms_short_switch = #{smsShortSwitch,jdbcType=TINYINT},
+      </if>
+      <if test="smsMailSwitch != null" >
+        sms_mail_switch = #{smsMailSwitch,jdbcType=TINYINT},
+      </if>
+      <if test="smsShortNumber != null" >
+        sms_short_number = #{smsShortNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="smsMailNumber != null" >
+        sms_mail_number = #{smsMailNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where smt_code = #{smtCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dshop.bean.DshopStoreMsgSetting" >
+    update dshop_store_msg_setting
+    set store_id = #{storeId,jdbcType=INTEGER},
+      sms_message_switch = #{smsMessageSwitch,jdbcType=TINYINT},
+      sms_short_switch = #{smsShortSwitch,jdbcType=TINYINT},
+      sms_mail_switch = #{smsMailSwitch,jdbcType=TINYINT},
+      sms_short_number = #{smsShortNumber,jdbcType=VARCHAR},
+      sms_mail_number = #{smsMailNumber,jdbcType=VARCHAR}
+    where smt_code = #{smtCode,jdbcType=VARCHAR}
+  </update>
+  <cache />
+  <select resultMap="BaseResultMap" parameterType="com.dshop.bean.example.DshopStoreMsgSettingExample" id="selectByExampleWithRowbounds" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dshop_store_msg_setting
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

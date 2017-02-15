@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop.xsd
+            http://www.springframework.org/schema/mvc
+            http://www.springframework.org/schema/mvc/spring-mvc.xsd"
+    default-lazy-init="true">  
+    
+    <!-- 默认扫描的包路径 -->  
+    <context:component-scan base-package="com.dshop.**" />
+    
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">  
+        <!-- 日期格式转换 -->  
+        <property name="webBindingInitializer">  
+            <bean class="com.dshop.util.DateConvert" />  
+        </property>  
+    </bean>
+  
+    <tx:annotation-driven transaction-manager="txManager"/>
+    
+    <aop:aspectj-autoproxy/>
+    
+    <!-- 视图模式配置,velocity配置文件 -->
+    <bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <property name="resourceLoaderPath" value="/views"/>
+        <property name="configLocation" value="classpath:properties/velocity.properties"/>
+    </bean>
+    <!-- 配置后缀-->
+	<bean id="velocityViewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">  
+	    <property name="suffix" value=".html"/>
+	    <property name="contentType" value="text/html;charset=UTF-8"></property>  
+	</bean> 
+ 	
+ 	<!-- 配置文件初始化 -->
+    <context:property-placeholder location="classpath:properties/resources.properties,classpath:properties/jdbc.properties" />
+    
+    <!-- 设置不过滤内容，比如:css,jquery,img 等资源文件  -->
+    <mvc:annotation-driven></mvc:annotation-driven>
+    <mvc:resources mapping="/${resources.webpc.version}/css/**" location="/resources/${resources.webpc.version}/css/"/>  
+    <mvc:resources mapping="/${resources.webpc.version}/js/**" location="/resources/${resources.webpc.version}/js/"/>  
+    <mvc:resources mapping="/${resources.webpc.version}/images/**" location="/resources/${resources.webpc.version}/images/"/> 
+    <mvc:resources mapping="/${resources.webmanager.version}/css/**" location="/resources/${resources.webmanager.version}/css/"/>  
+    <mvc:resources mapping="/${resources.webmanager.version}/js/**" location="/resources/${resources.webmanager.version}/js/"/>  
+    <mvc:resources mapping="/${resources.webmanager.version}/images/**" location="/resources/${resources.webmanager.version}/images/"/>
+    <mvc:resources mapping="/${resources.webmanager.version}/font/**" location="/resources/${resources.webmanager.version}/font/"/>
+    <mvc:resources mapping="/${resources.goods}/**" location="/${resources.goods}/"/>    
+    
+ 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close" primary="true">
+		<property name="url" value="${dataSource.url}" />
+		<property name="username" value="${dataSource.username}" />
+		<property name="password" value="${dataSource.password}" />
+		<!-- 初始化连接大小 -->
+		<property name="initialSize" value="${dataSource.initialSize}" />
+		<!-- 连接池最大使用连接数量 -->
+		<property name="maxActive" value="${dataSource.maxActive}" />
+		<!-- 连接池最小空闲 -->
+		<property name="minIdle" value="${dataSource.minIdle}" />
+		<!-- 获取连接最大等待时间 -->
+		<property name="maxWait" value="${dataSource.maxWait}" />
+		<!-- <property name="poolPreparedStatements" value="true" /> <property name="maxPoolPreparedStatementPerConnectionSize" value="33" /> -->
+		<property name="testOnBorrow" value="${dataSource.testOnBorrow}" />
+		<property name="testOnReturn" value="${dataSource.testOnReturn}" />
+		<property name="testWhileIdle" value="${dataSource.testWhileIdle}" />
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="${dataSource.timeBetweenEvictionRunsMillis}" />
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="${dataSource.minEvictableIdleTimeMillis}" />
+		<!-- 打开removeAbandoned功能 -->
+		<property name="removeAbandoned" value="${dataSource.removeAbandoned}" />
+		<!-- 1800秒，也就是30分钟 -->
+		<property name="removeAbandonedTimeout" value="${dataSource.removeAbandonedTimeout}" />
+		<!-- 关闭abanded连接时输出错误日志 -->
+		<property name="logAbandoned" value="${dataSource.logAbandoned}" />
+		<!-- 监控数据库 -->
+		<!-- <property name="filters" value="stat" /> -->
+		<property name="filters" value="${dataSource.filters}" />
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath:com/dshop/mapper/*.xml" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.dshop.service.mapper" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="create*" propagation="REQUIRED" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="merge*" propagation="REQUIRED" />
+			<tx:method name="del*" propagation="REQUIRED" />
+			<tx:method name="remove*" propagation="REQUIRED" />
+			<tx:method name="put*" propagation="REQUIRED" />
+			<tx:method name="get*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="count*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="find*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="list*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="select*" propagation="REQUIRED" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- 事务 aop 配置  -->
+    <aop:config>
+        <aop:pointcut id="serviceMethods" expression="execution(* com.dshop.dao..*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods"/>
+    </aop:config>
+ 	
+    <!-- mvc:view-controller可以在不需要Controller处理request的情况，转向到设置的View -->  
+    <!-- 像下面这样设置，如果请求为/，则不通过controller，而直接解析为/index.jsp -->  
+    <!-- <mvc:view-controller path="/" view-name="index" />-->
+    
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> 
+      <!-- set the max upload size100MB --> 
+      <property name="maxUploadSize"> 
+           <value>104857600</value> 
+      </property> 
+      <property name="maxInMemorySize"> 
+          <value>4096</value> 
+      </property> 
+	</bean> 
+      
+</beans>  

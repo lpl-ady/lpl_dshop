@@ -1,0 +1,15 @@
+#parse("/webpc/comm.html")
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+hello
+#foreach($t in $test)
+  $t.name
+#end
+<img src="$static/images/detail/banner.jpg?v=$!{version}">
+</body>
+</html>

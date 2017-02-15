@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dshop.service.mapper.DshopStoreGradeMapper" >
+  <resultMap id="BaseResultMap" type="com.dshop.bean.DshopStoreGrade" >
+    <id column="grade_id" property="gradeId" jdbcType="INTEGER" />
+    <result column="grade_name" property="gradeName" jdbcType="CHAR" />
+    <result column="grade_goods_limit" property="gradeGoodsLimit" jdbcType="INTEGER" />
+    <result column="grade_album_limit" property="gradeAlbumLimit" jdbcType="INTEGER" />
+    <result column="grade_space_limit" property="gradeSpaceLimit" jdbcType="INTEGER" />
+    <result column="grade_template_number" property="gradeTemplateNumber" jdbcType="TINYINT" />
+    <result column="grade_template" property="gradeTemplate" jdbcType="VARCHAR" />
+    <result column="grade_price" property="gradePrice" jdbcType="DECIMAL" />
+    <result column="grade_function" property="gradeFunction" jdbcType="VARCHAR" />
+    <result column="grade_sort" property="gradeSort" jdbcType="TINYINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.dshop.bean.DshopStoreGrade" extends="BaseResultMap" >
+    <result column="grade_description" property="gradeDescription" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    grade_id, grade_name, grade_goods_limit, grade_album_limit, grade_space_limit, grade_template_number, 
+    grade_template, grade_price, grade_function, grade_sort
+  </sql>
+  <sql id="Blob_Column_List" >
+    grade_description
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.dshop.bean.example.DshopStoreGradeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dshop_store_grade
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dshop.bean.example.DshopStoreGradeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dshop_store_grade
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dshop_store_grade
+    where grade_id = #{gradeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dshop_store_grade
+    where grade_id = #{gradeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dshop.bean.example.DshopStoreGradeExample" >
+    delete from dshop_store_grade
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dshop.bean.DshopStoreGrade" >
+    insert into dshop_store_grade (grade_id, grade_name, grade_goods_limit, 
+      grade_album_limit, grade_space_limit, grade_template_number, 
+      grade_template, grade_price, grade_function, 
+      grade_sort, grade_description)
+    values (#{gradeId,jdbcType=INTEGER}, #{gradeName,jdbcType=CHAR}, #{gradeGoodsLimit,jdbcType=INTEGER}, 
+      #{gradeAlbumLimit,jdbcType=INTEGER}, #{gradeSpaceLimit,jdbcType=INTEGER}, #{gradeTemplateNumber,jdbcType=TINYINT}, 
+      #{gradeTemplate,jdbcType=VARCHAR}, #{gradePrice,jdbcType=DECIMAL}, #{gradeFunction,jdbcType=VARCHAR}, 
+      #{gradeSort,jdbcType=TINYINT}, #{gradeDescription,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dshop.bean.DshopStoreGrade" >
+    insert into dshop_store_grade
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gradeId != null" >
+        grade_id,
+      </if>
+      <if test="gradeName != null" >
+        grade_name,
+      </if>
+      <if test="gradeGoodsLimit != null" >
+        grade_goods_limit,
+      </if>
+      <if test="gradeAlbumLimit != null" >
+        grade_album_limit,
+      </if>
+      <if test="gradeSpaceLimit != null" >
+        grade_space_limit,
+      </if>
+      <if test="gradeTemplateNumber != null" >
+        grade_template_number,
+      </if>
+      <if test="gradeTemplate != null" >
+        grade_template,
+      </if>
+      <if test="gradePrice != null" >
+        grade_price,
+      </if>
+      <if test="gradeFunction != null" >
+        grade_function,
+      </if>
+      <if test="gradeSort != null" >
+        grade_sort,
+      </if>
+      <if test="gradeDescription != null" >
+        grade_description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gradeId != null" >
+        #{gradeId,jdbcType=INTEGER},
+      </if>
+      <if test="gradeName != null" >
+        #{gradeName,jdbcType=CHAR},
+      </if>
+      <if test="gradeGoodsLimit != null" >
+        #{gradeGoodsLimit,jdbcType=INTEGER},
+      </if>
+      <if test="gradeAlbumLimit != null" >
+        #{gradeAlbumLimit,jdbcType=INTEGER},
+      </if>
+      <if test="gradeSpaceLimit != null" >
+        #{gradeSpaceLimit,jdbcType=INTEGER},
+      </if>
+      <if test="gradeTemplateNumber != null" >
+        #{gradeTemplateNumber,jdbcType=TINYINT},
+      </if>
+      <if test="gradeTemplate != null" >
+        #{gradeTemplate,jdbcType=VARCHAR},
+      </if>
+      <if test="gradePrice != null" >
+        #{gradePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="gradeFunction != null" >
+        #{gradeFunction,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeSort != null" >
+        #{gradeSort,jdbcType=TINYINT},
+      </if>
+      <if test="gradeDescription != null" >
+        #{gradeDescription,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dshop.bean.example.DshopStoreGradeExample" resultType="java.lang.Integer" >
+    select count(*) from dshop_store_grade
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dshop_store_grade
+    <set >
+      <if test="record.gradeId != null" >
+        grade_id = #{record.gradeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.gradeName != null" >
+        grade_name = #{record.gradeName,jdbcType=CHAR},
+      </if>
+      <if test="record.gradeGoodsLimit != null" >
+        grade_goods_limit = #{record.gradeGoodsLimit,jdbcType=INTEGER},
+      </if>
+      <if test="record.gradeAlbumLimit != null" >
+        grade_album_limit = #{record.gradeAlbumLimit,jdbcType=INTEGER},
+      </if>
+      <if test="record.gradeSpaceLimit != null" >
+        grade_space_limit = #{record.gradeSpaceLimit,jdbcType=INTEGER},
+      </if>
+      <if test="record.gradeTemplateNumber != null" >
+        grade_template_number = #{record.gradeTemplateNumber,jdbcType=TINYINT},
+      </if>
+      <if test="record.gradeTemplate != null" >
+        grade_template = #{record.gradeTemplate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gradePrice != null" >
+        grade_price = #{record.gradePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.gradeFunction != null" >
+        grade_function = #{record.gradeFunction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gradeSort != null" >
+        grade_sort = #{record.gradeSort,jdbcType=TINYINT},
+      </if>
+      <if test="record.gradeDescription != null" >
+        grade_description = #{record.gradeDescription,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update dshop_store_grade
+    set grade_id = #{record.gradeId,jdbcType=INTEGER},
+      grade_name = #{record.gradeName,jdbcType=CHAR},
+      grade_goods_limit = #{record.gradeGoodsLimit,jdbcType=INTEGER},
+      grade_album_limit = #{record.gradeAlbumLimit,jdbcType=INTEGER},
+      grade_space_limit = #{record.gradeSpaceLimit,jdbcType=INTEGER},
+      grade_template_number = #{record.gradeTemplateNumber,jdbcType=TINYINT},
+      grade_template = #{record.gradeTemplate,jdbcType=VARCHAR},
+      grade_price = #{record.gradePrice,jdbcType=DECIMAL},
+      grade_function = #{record.gradeFunction,jdbcType=VARCHAR},
+      grade_sort = #{record.gradeSort,jdbcType=TINYINT},
+      grade_description = #{record.gradeDescription,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dshop_store_grade
+    set grade_id = #{record.gradeId,jdbcType=INTEGER},
+      grade_name = #{record.gradeName,jdbcType=CHAR},
+      grade_goods_limit = #{record.gradeGoodsLimit,jdbcType=INTEGER},
+      grade_album_limit = #{record.gradeAlbumLimit,jdbcType=INTEGER},
+      grade_space_limit = #{record.gradeSpaceLimit,jdbcType=INTEGER},
+      grade_template_number = #{record.gradeTemplateNumber,jdbcType=TINYINT},
+      grade_template = #{record.gradeTemplate,jdbcType=VARCHAR},
+      grade_price = #{record.gradePrice,jdbcType=DECIMAL},
+      grade_function = #{record.gradeFunction,jdbcType=VARCHAR},
+      grade_sort = #{record.gradeSort,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dshop.bean.DshopStoreGrade" >
+    update dshop_store_grade
+    <set >
+      <if test="gradeName != null" >
+        grade_name = #{gradeName,jdbcType=CHAR},
+      </if>
+      <if test="gradeGoodsLimit != null" >
+        grade_goods_limit = #{gradeGoodsLimit,jdbcType=INTEGER},
+      </if>
+      <if test="gradeAlbumLimit != null" >
+        grade_album_limit = #{gradeAlbumLimit,jdbcType=INTEGER},
+      </if>
+      <if test="gradeSpaceLimit != null" >
+        grade_space_limit = #{gradeSpaceLimit,jdbcType=INTEGER},
+      </if>
+      <if test="gradeTemplateNumber != null" >
+        grade_template_number = #{gradeTemplateNumber,jdbcType=TINYINT},
+      </if>
+      <if test="gradeTemplate != null" >
+        grade_template = #{gradeTemplate,jdbcType=VARCHAR},
+      </if>
+      <if test="gradePrice != null" >
+        grade_price = #{gradePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="gradeFunction != null" >
+        grade_function = #{gradeFunction,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeSort != null" >
+        grade_sort = #{gradeSort,jdbcType=TINYINT},
+      </if>
+      <if test="gradeDescription != null" >
+        grade_description = #{gradeDescription,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where grade_id = #{gradeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.dshop.bean.DshopStoreGrade" >
+    update dshop_store_grade
+    set grade_name = #{gradeName,jdbcType=CHAR},
+      grade_goods_limit = #{gradeGoodsLimit,jdbcType=INTEGER},
+      grade_album_limit = #{gradeAlbumLimit,jdbcType=INTEGER},
+      grade_space_limit = #{gradeSpaceLimit,jdbcType=INTEGER},
+      grade_template_number = #{gradeTemplateNumber,jdbcType=TINYINT},
+      grade_template = #{gradeTemplate,jdbcType=VARCHAR},
+      grade_price = #{gradePrice,jdbcType=DECIMAL},
+      grade_function = #{gradeFunction,jdbcType=VARCHAR},
+      grade_sort = #{gradeSort,jdbcType=TINYINT},
+      grade_description = #{gradeDescription,jdbcType=LONGVARCHAR}
+    where grade_id = #{gradeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dshop.bean.DshopStoreGrade" >
+    update dshop_store_grade
+    set grade_name = #{gradeName,jdbcType=CHAR},
+      grade_goods_limit = #{gradeGoodsLimit,jdbcType=INTEGER},
+      grade_album_limit = #{gradeAlbumLimit,jdbcType=INTEGER},
+      grade_space_limit = #{gradeSpaceLimit,jdbcType=INTEGER},
+      grade_template_number = #{gradeTemplateNumber,jdbcType=TINYINT},
+      grade_template = #{gradeTemplate,jdbcType=VARCHAR},
+      grade_price = #{gradePrice,jdbcType=DECIMAL},
+      grade_function = #{gradeFunction,jdbcType=VARCHAR},
+      grade_sort = #{gradeSort,jdbcType=TINYINT}
+    where grade_id = #{gradeId,jdbcType=INTEGER}
+  </update>
+  <cache />
+  <select resultMap="ResultMapWithBLOBs" parameterType="com.dshop.bean.example.DshopStoreGradeExample" id="selectByExampleWithBLOBsWithRowbounds" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dshop_store_grade
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select resultMap="BaseResultMap" parameterType="com.dshop.bean.example.DshopStoreGradeExample" id="selectByExampleWithRowbounds" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dshop_store_grade
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

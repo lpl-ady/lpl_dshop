@@ -1,0 +1,16 @@
+<div class="breadcrumbs" id="breadcrumbs">
+	<ul class="breadcrumb">
+		<li>
+			<i class="icon-home home-icon"></i>
+			<a href="/admin/index">控制台</a>
+		</li>
+		#if($crumbs1 && $crumbs2)
+		<li>
+			<a href="javascript:void(0)">$crumbs1</a>
+		</li>
+		#end
+		#if($crumbs2)
+		<li class="active">$crumbs2</li>
+		#end
+	</ul>
+</div>

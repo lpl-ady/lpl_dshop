@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dshop.service.mapper.DshopGoodsAttributeMapper" >
+  <resultMap id="BaseResultMap" type="com.dshop.bean.DshopGoodsAttribute" >
+    <id column="goods_attr_id" property="goodsAttrId" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="goods_attr_name" property="goodsAttrName" jdbcType="VARCHAR" />
+    <result column="goods_attr_value" property="goodsAttrValue" jdbcType="VARCHAR" />
+    <result column="goods_attr_costprice" property="goodsAttrCostprice" jdbcType="DECIMAL" />
+    <result column="goods_attr_toprice" property="goodsAttrToprice" jdbcType="DECIMAL" />
+    <result column="goods_attr_stock" property="goodsAttrStock" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    goods_attr_id, goods_id, goods_attr_name, goods_attr_value, goods_attr_costprice, 
+    goods_attr_toprice, goods_attr_stock
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dshop.bean.example.DshopGoodsAttributeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dshop_goods_attribute
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dshop_goods_attribute
+    where goods_attr_id = #{goodsAttrId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dshop_goods_attribute
+    where goods_attr_id = #{goodsAttrId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dshop.bean.example.DshopGoodsAttributeExample" >
+    delete from dshop_goods_attribute
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dshop.bean.DshopGoodsAttribute" >
+    insert into dshop_goods_attribute (goods_attr_id, goods_id, goods_attr_name, 
+      goods_attr_value, goods_attr_costprice, goods_attr_toprice, 
+      goods_attr_stock)
+    values (#{goodsAttrId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{goodsAttrName,jdbcType=VARCHAR}, 
+      #{goodsAttrValue,jdbcType=VARCHAR}, #{goodsAttrCostprice,jdbcType=DECIMAL}, #{goodsAttrToprice,jdbcType=DECIMAL}, 
+      #{goodsAttrStock,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dshop.bean.DshopGoodsAttribute" >
+    insert into dshop_goods_attribute
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsAttrId != null" >
+        goods_attr_id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="goodsAttrName != null" >
+        goods_attr_name,
+      </if>
+      <if test="goodsAttrValue != null" >
+        goods_attr_value,
+      </if>
+      <if test="goodsAttrCostprice != null" >
+        goods_attr_costprice,
+      </if>
+      <if test="goodsAttrToprice != null" >
+        goods_attr_toprice,
+      </if>
+      <if test="goodsAttrStock != null" >
+        goods_attr_stock,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsAttrId != null" >
+        #{goodsAttrId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsAttrName != null" >
+        #{goodsAttrName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsAttrValue != null" >
+        #{goodsAttrValue,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsAttrCostprice != null" >
+        #{goodsAttrCostprice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsAttrToprice != null" >
+        #{goodsAttrToprice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsAttrStock != null" >
+        #{goodsAttrStock,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dshop.bean.example.DshopGoodsAttributeExample" resultType="java.lang.Integer" >
+    select count(*) from dshop_goods_attribute
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dshop_goods_attribute
+    <set >
+      <if test="record.goodsAttrId != null" >
+        goods_attr_id = #{record.goodsAttrId,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsId != null" >
+        goods_id = #{record.goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsAttrName != null" >
+        goods_attr_name = #{record.goodsAttrName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsAttrValue != null" >
+        goods_attr_value = #{record.goodsAttrValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsAttrCostprice != null" >
+        goods_attr_costprice = #{record.goodsAttrCostprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.goodsAttrToprice != null" >
+        goods_attr_toprice = #{record.goodsAttrToprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.goodsAttrStock != null" >
+        goods_attr_stock = #{record.goodsAttrStock,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dshop_goods_attribute
+    set goods_attr_id = #{record.goodsAttrId,jdbcType=INTEGER},
+      goods_id = #{record.goodsId,jdbcType=INTEGER},
+      goods_attr_name = #{record.goodsAttrName,jdbcType=VARCHAR},
+      goods_attr_value = #{record.goodsAttrValue,jdbcType=VARCHAR},
+      goods_attr_costprice = #{record.goodsAttrCostprice,jdbcType=DECIMAL},
+      goods_attr_toprice = #{record.goodsAttrToprice,jdbcType=DECIMAL},
+      goods_attr_stock = #{record.goodsAttrStock,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dshop.bean.DshopGoodsAttribute" >
+    update dshop_goods_attribute
+    <set >
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsAttrName != null" >
+        goods_attr_name = #{goodsAttrName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsAttrValue != null" >
+        goods_attr_value = #{goodsAttrValue,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsAttrCostprice != null" >
+        goods_attr_costprice = #{goodsAttrCostprice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsAttrToprice != null" >
+        goods_attr_toprice = #{goodsAttrToprice,jdbcType=DECIMAL},
+      </if>
+      <if test="goodsAttrStock != null" >
+        goods_attr_stock = #{goodsAttrStock,jdbcType=INTEGER},
+      </if>
+    </set>
+    where goods_attr_id = #{goodsAttrId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dshop.bean.DshopGoodsAttribute" >
+    update dshop_goods_attribute
+    set goods_id = #{goodsId,jdbcType=INTEGER},
+      goods_attr_name = #{goodsAttrName,jdbcType=VARCHAR},
+      goods_attr_value = #{goodsAttrValue,jdbcType=VARCHAR},
+      goods_attr_costprice = #{goodsAttrCostprice,jdbcType=DECIMAL},
+      goods_attr_toprice = #{goodsAttrToprice,jdbcType=DECIMAL},
+      goods_attr_stock = #{goodsAttrStock,jdbcType=INTEGER}
+    where goods_attr_id = #{goodsAttrId,jdbcType=INTEGER}
+  </update>
+  <cache />
+  <select resultMap="BaseResultMap" parameterType="com.dshop.bean.example.DshopGoodsAttributeExample" id="selectByExampleWithRowbounds" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dshop_goods_attribute
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

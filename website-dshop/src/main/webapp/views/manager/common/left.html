@@ -1,0 +1,98 @@
+<a class="menu-toggler" id="menu-toggler" href="#">
+		<span class="menu-text"></span>
+</a>
+<div class="sidebar" id="sidebar">
+	<!-- 导航栏左边图标 -->
+	<div class="sidebar-shortcuts" id="sidebar-shortcuts">
+		<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+			<button class="btn btn-success">
+				<i class="icon-signal"></i>
+			</button>
+			<button class="btn btn-info">
+				<i class="icon-pencil"></i>
+			</button>
+			<button class="btn btn-warning">
+				<i class="icon-group"></i>
+			</button>
+			<button class="btn btn-danger">
+				<i class="icon-cogs"></i>
+			</button>
+		</div>
+		<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+			<span class="btn btn-success"></span>
+			<span class="btn btn-info"></span>
+			<span class="btn btn-warning"></span>
+			<span class="btn btn-danger"></span>
+		</div>
+	</div>
+
+	<ul class="nav nav-list">
+		<li #if(!$menu)class="active"#end>
+			<a href="/admin/index">
+				<i class="icon-dashboard"></i>
+				<span class="menu-text">控制台</span>
+			</a>
+		</li>
+	
+	#if($rightList && $rightList.size() > 0)
+		#foreach($right1 in $rightList)
+		#set($rightList1 = $right1.list)
+		##第一级
+		#if(($rightList1 && $rightList1.size() > 0))
+		    #foreach($right2 in $rightList1)
+		    	#if($menu == $right2.rightUrl)
+		    		#set($open = "true")
+		    		##面包屑
+		    		#set($crumbs1 = $right1.rightName)
+		    	#end
+		    #end
+		#end
+		<li #if($open == "true")class="active open"#end>
+			#set($open = "false")
+			<a href="$!{right1.rightUrl}" class="dropdown-toggle">
+				<i class="$!{right1.rightIcon}"></i>
+				<span class="menu-text">$!{right1.rightName}</span>
+				#if($rightList1 && $rightList1.size() > 0)
+					<b class="arrow icon-angle-down"></b>
+					#set($rightList1 = "null")
+				#end
+			</a>
+			#if($right1.list && $right1.list.size() > 0)
+				<ul class="submenu">
+				  #foreach($right2 in $right1.list)
+				  #set($rightList2 = $right2.list)
+				  ##第二级
+					<li #if($menu == $right2.rightUrl)class="active" #set($crumbs2 = $right2.rightName) #end>
+						<a href="$!{right2.rightUrl}" class="dropdown-toggle">
+							<i class="icon-double-angle-right"></i>
+							$!{right2.rightName}
+							#if($rightList2 && $rightList2 != "")
+								<b class="arrow icon-angle-down"></b>
+								#set($rightList2 = "")
+							#end
+						</a>
+						#if($right2.list)
+							<ul class="submenu">
+								#foreach($right3 in $right2.list)
+								<li>
+									<a href="$!{right3.rightUrl}">
+										<i class="icon-leaf"></i>
+										$!{right3.rightName}
+									</a>
+								</li>
+								#end
+							</ul>
+						#end
+					</li>
+					#end
+				</ul>
+			#end
+		</li>
+		#end
+	#end
+	</ul>
+
+	<div class="sidebar-collapse" id="sidebar-collapse">
+		<i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+	</div>
+</div>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dshop.service.mapper.DshopStoreBindCategoryMapper" >
+  <resultMap id="BaseResultMap" type="com.dshop.bean.DshopStoreBindCategory" >
+    <id column="sbc_id" property="sbcId" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="commis_rate" property="commisRate" jdbcType="TINYINT" />
+    <result column="cate_id1" property="cateId1" jdbcType="INTEGER" />
+    <result column="cate_id2" property="cateId2" jdbcType="INTEGER" />
+    <result column="cate_id3" property="cateId3" jdbcType="INTEGER" />
+    <result column="sbc_status" property="sbcStatus" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sbc_id, store_id, commis_rate, cate_id1, cate_id2, cate_id3, sbc_status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dshop.bean.example.DshopStoreBindCategoryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dshop_store_bind_category
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dshop_store_bind_category
+    where sbc_id = #{sbcId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dshop_store_bind_category
+    where sbc_id = #{sbcId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dshop.bean.example.DshopStoreBindCategoryExample" >
+    delete from dshop_store_bind_category
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dshop.bean.DshopStoreBindCategory" >
+    insert into dshop_store_bind_category (sbc_id, store_id, commis_rate, 
+      cate_id1, cate_id2, cate_id3, 
+      sbc_status)
+    values (#{sbcId,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, #{commisRate,jdbcType=TINYINT}, 
+      #{cateId1,jdbcType=INTEGER}, #{cateId2,jdbcType=INTEGER}, #{cateId3,jdbcType=INTEGER}, 
+      #{sbcStatus,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dshop.bean.DshopStoreBindCategory" >
+    insert into dshop_store_bind_category
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sbcId != null" >
+        sbc_id,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="commisRate != null" >
+        commis_rate,
+      </if>
+      <if test="cateId1 != null" >
+        cate_id1,
+      </if>
+      <if test="cateId2 != null" >
+        cate_id2,
+      </if>
+      <if test="cateId3 != null" >
+        cate_id3,
+      </if>
+      <if test="sbcStatus != null" >
+        sbc_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sbcId != null" >
+        #{sbcId,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="commisRate != null" >
+        #{commisRate,jdbcType=TINYINT},
+      </if>
+      <if test="cateId1 != null" >
+        #{cateId1,jdbcType=INTEGER},
+      </if>
+      <if test="cateId2 != null" >
+        #{cateId2,jdbcType=INTEGER},
+      </if>
+      <if test="cateId3 != null" >
+        #{cateId3,jdbcType=INTEGER},
+      </if>
+      <if test="sbcStatus != null" >
+        #{sbcStatus,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dshop.bean.example.DshopStoreBindCategoryExample" resultType="java.lang.Integer" >
+    select count(*) from dshop_store_bind_category
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dshop_store_bind_category
+    <set >
+      <if test="record.sbcId != null" >
+        sbc_id = #{record.sbcId,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeId != null" >
+        store_id = #{record.storeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.commisRate != null" >
+        commis_rate = #{record.commisRate,jdbcType=TINYINT},
+      </if>
+      <if test="record.cateId1 != null" >
+        cate_id1 = #{record.cateId1,jdbcType=INTEGER},
+      </if>
+      <if test="record.cateId2 != null" >
+        cate_id2 = #{record.cateId2,jdbcType=INTEGER},
+      </if>
+      <if test="record.cateId3 != null" >
+        cate_id3 = #{record.cateId3,jdbcType=INTEGER},
+      </if>
+      <if test="record.sbcStatus != null" >
+        sbc_status = #{record.sbcStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dshop_store_bind_category
+    set sbc_id = #{record.sbcId,jdbcType=INTEGER},
+      store_id = #{record.storeId,jdbcType=INTEGER},
+      commis_rate = #{record.commisRate,jdbcType=TINYINT},
+      cate_id1 = #{record.cateId1,jdbcType=INTEGER},
+      cate_id2 = #{record.cateId2,jdbcType=INTEGER},
+      cate_id3 = #{record.cateId3,jdbcType=INTEGER},
+      sbc_status = #{record.sbcStatus,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dshop.bean.DshopStoreBindCategory" >
+    update dshop_store_bind_category
+    <set >
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="commisRate != null" >
+        commis_rate = #{commisRate,jdbcType=TINYINT},
+      </if>
+      <if test="cateId1 != null" >
+        cate_id1 = #{cateId1,jdbcType=INTEGER},
+      </if>
+      <if test="cateId2 != null" >
+        cate_id2 = #{cateId2,jdbcType=INTEGER},
+      </if>
+      <if test="cateId3 != null" >
+        cate_id3 = #{cateId3,jdbcType=INTEGER},
+      </if>
+      <if test="sbcStatus != null" >
+        sbc_status = #{sbcStatus,jdbcType=TINYINT},
+      </if>
+    </set>
+    where sbc_id = #{sbcId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dshop.bean.DshopStoreBindCategory" >
+    update dshop_store_bind_category
+    set store_id = #{storeId,jdbcType=INTEGER},
+      commis_rate = #{commisRate,jdbcType=TINYINT},
+      cate_id1 = #{cateId1,jdbcType=INTEGER},
+      cate_id2 = #{cateId2,jdbcType=INTEGER},
+      cate_id3 = #{cateId3,jdbcType=INTEGER},
+      sbc_status = #{sbcStatus,jdbcType=TINYINT}
+    where sbc_id = #{sbcId,jdbcType=INTEGER}
+  </update>
+  <cache />
+  <select resultMap="BaseResultMap" parameterType="com.dshop.bean.example.DshopStoreBindCategoryExample" id="selectByExampleWithRowbounds" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dshop_store_bind_category
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

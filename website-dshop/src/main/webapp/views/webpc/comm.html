@@ -1,0 +1,9 @@
+##静态资源控制调取的文件
+#set($version=1) 
+#set($online='false')
+##-------------------------------------------------------------------------------------------------
+#if($online=='true')
+#parse("/webpc/online.html")
+#else
+#parse("/webpc/offline.html")
+#end

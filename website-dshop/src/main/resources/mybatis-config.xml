@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<properties>
+		<property name="dialect" value="MYSQL" />
+	</properties>
+
+	<settings>
+		<!-- 全局延迟加载 ,在启用延迟加载的同时，需要禁用"aggressiveLazyLoading"项 -->
+		<setting name="lazyLoadingEnabled" value="false" />
+		<setting name="aggressiveLazyLoading" value="false" />
+
+		<!-- 这个设置项在用户手册当中的定义当启用时，有延迟加载属性的对象在被 调用时将会完全加载任意属性。否则，每种属性将会按需要加载。 -->
+		<setting name="lazyLoadTriggerMethods" value="clone" />
+		<setting name="defaultExecutorType" value="SIMPLE" />
+		
+		<!-- 禁用缓存 -->
+        <setting name="cacheEnabled" value="false" />
+		
+	</settings>
+
+	<!-- <plugins>
+		<plugin interceptor="com.bj58.daojia.common.scfbase.mybatis.PaginationInterceptor" />
+	</plugins> -->
+
+</configuration>
